@@ -1,0 +1,47 @@
+version: "3.1"
+
+services:
+
+#
+# Learn about sdelrio/consul image here: https://github.com/sdelrio/consul
+  consul:
+    image: sdelrio/consul:latest
+    labels: [app=consul]
+    ports:
+        - "8500:8500"
+    networks:
+        - consul-net
+    healthcheck:
+       disable: true
+    environment:
+        - 'CONSUL_LOCAL_CONFIG={"skip_leave_on_interrupt": true, "datacenter":"swarm-demo"}'
+        - CONSUL_BIND_INTERFACE=eth0
+        - CONSUL=consul
+        - CONSUL_CHECK_LEADER=true
+    deploy:
+        mode: global
+        placement:
+            constraints: [node.labels.quorum == true]
+        resources:
+            reservations:
+                memory: 512M
+        restart_policy:
+            condition: on-failure
+            delay: 5s
+            max_attempts: 3
+            window: 120s
+        update_config:
+            parallelism: 1
+            delay: 10s
+            failure_action: continue
+# no UI
+#    command: "agent -server -bootstrap-expect 3 -client=0.0.0.0 -retry-interval 5s --log-level warn -disable-host-node-id"
+    command: "agent -server -bootstrap-expect 3 -ui -client=0.0.0.0 -retry-interval 5s --log-level warn -disable-host-node-id"
+networks:
+  consul-net:
+    driver: overlay
+    ipam:
+      driver: default
+      config:
+      -
+        subnet: 172.28.0.0/16
