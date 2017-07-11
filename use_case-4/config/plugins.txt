@@ -12,7 +12,7 @@ htmlpublisher:1.12
 jenkins-flowdock-plugin:1.1.8
 job-dsl:1.58
 marathon:1.5.0
-matrix-auth:1.4
+matrix-auth:1.7
 mask-passwords:2.9
 metrics-graphite:3.0.0
 modernstatus:1.2

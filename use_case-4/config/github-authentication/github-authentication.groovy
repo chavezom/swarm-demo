@@ -8,25 +8,17 @@ def env = System.getenv()
 GITHUB_URL = env['GITHUB_URL']
 GITHUB_API_URL = env['GITHUB_API_URL']
 
-//if ( env['GITHUB_CLIENT_ID'] ) {
-//  GITHUB_CLIENT_ID = env['GITHUB_CLIENT_ID']
-//} else {
-  def secret_client_id = new File('/run/secrets/GITHUB_CLIENT_ID')
-  if ( secret_client_id.exists() ) {
-    GITHUB_CLIENT_ID = secret_client_id.text
-    println('== github-authentication.groovy - GITHUB_CLIENT_ID from docker secret')
-  }
-//}
+def secret_client_id = new File('/run/secrets/GITHUB_CLIENT_ID')
+if ( secret_client_id.exists() ) {
+  GITHUB_CLIENT_ID = secret_client_id.text
+  println('== github-authentication.groovy - GITHUB_CLIENT_ID from docker secret')
+}
 
-//if ( env['GITHUB_CLIENT_SECRET'] ) {
-//  GITHUB_CLIENT_SECRET = env['GITHUB_CLIENT_SECRET']
-//} else {
-  def secret_client_sec = new File('/run/secrets/GITHUB_CLIENT_SECRET')
-  if ( secret_client_sec.exists() ) {
-    GITHUB_CLIENT_SECRET = secret_client_sec.text
-    println('== github-authentication.groovy - GITHUB_CLIENT_SECRET from docker secret')
-  }
-//}
+def secret_client_sec = new File('/run/secrets/GITHUB_CLIENT_SECRET')
+if ( secret_client_sec.exists() ) {
+  GITHUB_CLIENT_SECRET = secret_client_sec.text
+  println('== github-authentication.groovy - GITHUB_CLIENT_SECRET from docker secret')
+}
 
 println('== github-authentication.groovy - GITHUB_API_URL = ' + GITHUB_API_URL)
 println('== github-authentication.groovy - GITHUB_URL = ' + GITHUB_URL)

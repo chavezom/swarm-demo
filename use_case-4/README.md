@@ -6,10 +6,14 @@ with required plugins.  We'll use `yet-another-docker-plugin` to
 integrate slave nodes into our swarm cluster.
 
 ## Setup
+1. Getting secrets setup to auth with GitHub requires an application to setup in GitHub:  
+   ![App Config](docs/images/app_account.png)
+1. Create a github token that will be used for global authentication to pull seed repo information if necessary
 1. setup secrets with `make secrets`
 1. build the container on the first swarm node with the command:
    `make build`
 2. deploy the jenkins server with the command : `make deploy`
+
 
 ## Test
 

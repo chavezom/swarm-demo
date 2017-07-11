@@ -49,6 +49,7 @@ services:
       - GITHUB_TOKEN
       - GITHUB_CLIENT_ID
       - GITHUB_CLIENT_SECRET
+      - GITHUB_ADMIN_USERS
 networks:
   jenkins-net:
     driver: overlay
@@ -65,6 +66,8 @@ secrets:
   GITHUB_CLIENT_ID:
     external: true
   GITHUB_CLIENT_SECRET:
+    external: true
+  GITHUB_ADMIN_USERS:
     external: true
 # setup secret
 # GITHUB_CLIENT_ID
