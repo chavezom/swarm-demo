@@ -13,6 +13,11 @@ RUN apk add --no-cache \
     mkdir -p /git/seed-jobs && \
     chown -R jenkins:jenkins /git
 
+ARG VAULT_VERSION=0.6.0
+RUN curl -L "https://releases.hashicorp.com/vault/${VAULT_VERSION}/vault_${VAULT_VERSION}_linux_amd64.zip" -o /tmp/vault.zip && \
+    unzip /tmp/vault.zip -d /usr/local/bin && \
+    rm -f /tmp/vault.zip
+
 USER jenkins
 
 COPY config/plugins.txt /usr/share/jenkins/ref/plugins.txt
@@ -49,6 +54,8 @@ RUN cd /git/seed-jobs && \
     git init && \
     git add -A && \
     git commit -m "container based seed-jobs repo for init"
+
+
 
 #
 # EXPOSE 8080 50000

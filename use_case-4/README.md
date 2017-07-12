@@ -40,3 +40,7 @@ You can undeploy the jenkins server with the command:
 ```
 make clean
 ```
+
+## FAQ
+### How do I rebuild all slave images from scratch?
+    `BUILD_ARGS="--no-cache" make slaves`

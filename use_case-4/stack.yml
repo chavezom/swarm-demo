@@ -38,6 +38,9 @@ services:
         - YADP_CONFIG_JSON=/config/yadp-config.json
         - JENKINS_EXECUTORS=5
         - BUILD_DSL_SCRIPTS
+        - http_proxy
+        - https_proxy
+        - no_proxy
 
     deploy:
         mode: replicated

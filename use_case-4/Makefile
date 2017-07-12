@@ -1,5 +1,14 @@
 SHELL := /bin/bash
 PREFIX ?= $(shell pwd)
+ifneq ($(http_proxy),)
+	BUILD_ARGS := $(BUILD_ARGS) --build-arg http_proxy=$(http_proxy)
+endif
+ifneq ($(https_proxy),)
+	BUILD_ARGS := $(BUILD_ARGS) --build-arg https_proxy=$(http_proxy)
+endif
+ifneq ($(no_proxy),)
+	BUILD_ARGS := $(BUILD_ARGS) --build-arg no_proxy=$(no_proxy)
+endif
 
 default: deploy
 
@@ -12,7 +21,7 @@ status:
 	$(PREFIX)/build/status.sh
 
 build:
-	$(PREFIX)/build/build.sh
+	BUILD_ARGS="$(BUILD_ARGS)" $(PREFIX)/build/build.sh
 
 clean:
 	$(PREFIX)/build/clean.sh
@@ -24,4 +33,4 @@ undeploy:
 	$(PREFIX)/build/undeploy.sh
 
 slaves:
-	$(PREFIX)/build/slaves.sh
+	BUILD_ARGS="$(BUILD_ARGS)" $(PREFIX)/build/slaves.sh
