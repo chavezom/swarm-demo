@@ -33,4 +33,19 @@ Now lets do [swarm use cases](docs/README.md)!
 
 ## Trouble shoot
 
-FAQ
+### docker-machine complains about certs
+
+Sometime you might get this error:
+```
+docker-swarm-node-1 node ls
+error during connect: Get https://192.168.99.101:2376/v1.29/nodes: x509: certificate is valid for 192.168.99.100, not 192.168.99.101
+```
+This might be a good indicator it's time to regenerate your certs
+because the time or ip addresses are wrong due to boot sequence.
+Usually this occurs after reboot.
+
+This script should make sure your cluster is up and running and
+will regenerate the certs automatically.
+```
+setup/start.sh
+```

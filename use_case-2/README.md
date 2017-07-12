@@ -5,6 +5,11 @@ We will use the swarm vault store as the primary method to secure the global key
 
 ## Setup
 
+1. source the alias keys
+   ```
+   source ../keys/swarm-alias.sh
+   ``
+
 ## Test
 
 ## Exercise

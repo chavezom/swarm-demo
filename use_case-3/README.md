@@ -6,19 +6,30 @@ We don't need shared volume storage because Minio handles the replication for us
 
 ## Setup
 
+You can find detailed instructions on how this is setup here:
 https://docs.minio.io/docs/deploy-minio-on-docker-swarm
 
-```
-echo "AKIAIOSFODNN7EXAMPLE" | docker secret create access_key -
-echo "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY" | docker secret create secret_key -
-```
+1. source the alias keys
+   ```
+   source ../keys/swarm-alias.sh
+   ```
 
-```
-docker service create --name="minio-service" --secret="access_key" --secret="secret_key" minio/minio server /export
-```
-
+1. Create the secrets required to run minio.
+   ```
+   make secrets
+   ```
+2. Deploy minio.
+   ```
+   make deploy
+   ```
+3. You can get the keys from the logs by executing :
+   ```
+   make status
+   ```
 
 ## Test
+
+Pull up minio url locally on port `9001`: `http://192.168.99.101:9001`
 
 ## Exercise
 
@@ -29,3 +40,7 @@ docker service create --name="minio-service" --secret="access_key" --secret="sec
 1. Monitor the Minio service health with the Swarm healthcheck feature
 
 ## Un-deploy
+
+```
+make undeploy
+```

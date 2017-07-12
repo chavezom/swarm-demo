@@ -4,10 +4,18 @@ First use case will show how we can start a new service for key/value store.  Th
 
 ## Setup
 
-```
-source ../keys/swarm-alias.sh
-docker-swarm-node-1 stack deploy --compose-file ./stack.yml consul
-```
+1. source the alias keys
+   ```
+   source ../keys/swarm-alias.sh
+   ```
+1. deploy consul
+   ```
+   make deploy
+   ```
+1. get the status and wait for a leader to be elected
+   ```
+   make status
+   ```
 
 ## Test
 
