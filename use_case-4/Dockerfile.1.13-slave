@@ -1,0 +1,63 @@
+FROM docker:1.13
+
+MAINTAINER oscar.romero@hpe.com
+
+# https://github.com/docker/docker/blob/master/project/PACKAGERS.md#runtime-dependencies
+RUN apk add --no-cache \
+    btrfs-progs \
+    e2fsprogs \
+    e2fsprogs-extra \
+    iptables \
+    xfsprogs \
+    xz \
+    openjdk7-jre-base \
+    bash \
+    wget \
+    ca-certificates \
+    unzip \
+    curl \
+    git \
+    jq \
+    make \
+    yaml && \
+    mkdir -p /tmp && \
+    update-ca-certificates && \
+    chmod 1777 /tmp
+
+# TODO aufs-tools
+
+# set up subuid/subgid so that "--userns-remap=default" works out-of-the-box
+RUN set -x \
+    && addgroup -S dockremap \
+    && adduser -S -G dockremap dockremap \
+    && echo 'dockremap:165536:65536' >> /etc/subuid \
+    && echo 'dockremap:165536:65536' >> /etc/subgid
+
+ENV DIND_COMMIT 3b5fac462d21ca164b3778647420016315289034
+
+RUN curl -o /usr/local/bin/dind -kfsSL "https://raw.githubusercontent.com/docker/docker/${DIND_COMMIT}/hack/dind" \
+	&& chmod +x /usr/local/bin/dind
+
+COPY scripts/dockerd-entrypoint.sh /usr/local/bin/
+COPY scripts/useradd /bin
+
+ARG VAULT_VERSION=0.6.0
+RUN curl -L "https://releases.hashicorp.com/vault/${VAULT_VERSION}/vault_${VAULT_VERSION}_linux_amd64.zip" -o /tmp/vault.zip && \
+    unzip /tmp/vault.zip -d /usr/local/bin && \
+    rm -f /tmp/vault.zip
+
+# ENV PATH "$PATH:/usr/local/bin/docker"
+ENV DOCKER_COMPOSE_VERSION "1.10.0"
+
+# Curl installation does not work for docker-compose, only pip
+RUN echo "http://dl-6.alpinelinux.org/alpine/v3.3/main" >> /etc/apk/repositories && \
+    apk --no-cache add py-pip
+
+RUN pip install docker-compose=="${DOCKER_COMPOSE_VERSION}" && \
+    docker-compose --version
+
+#VOLUME /var/lib/docker
+EXPOSE 2375
+
+ENTRYPOINT ["dockerd-entrypoint.sh"]
+CMD []

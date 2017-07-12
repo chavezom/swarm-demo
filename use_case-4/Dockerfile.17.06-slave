@@ -1,0 +1,55 @@
+FROM docker:17.06
+
+MAINTAINER oscar.romero@hpe.com
+
+# https://github.com/docker/docker/blob/master/project/PACKAGERS.md#runtime-dependencies
+RUN apk add --no-cache \
+    btrfs-progs \
+    e2fsprogs \
+    e2fsprogs-extra \
+    iptables \
+    xfsprogs \
+    xz \
+    curl \
+    openjdk7-jre-base \
+    bash \
+    wget \
+    ca-certificates \
+    unzip \
+    git \
+    jq \
+    make \
+    yaml && \
+    mkdir -p /tmp && \
+    update-ca-certificates && \
+    chmod 1777 /tmp
+
+# TODO aufs-tools
+
+# set up subuid/subgid so that "--userns-remap=default" works out-of-the-box
+RUN set -x \
+	&& addgroup -S dockremap \
+	&& adduser -S -G dockremap dockremap \
+	&& echo 'dockremap:165536:65536' >> /etc/subuid \
+	&& echo 'dockremap:165536:65536' >> /etc/subgid
+
+ENV DIND_COMMIT 3b5fac462d21ca164b3778647420016315289034
+
+RUN apk add --no-cache --virtual .fetch-deps libressl \
+  && curl -o /usr/local/bin/dind -kfsSL "https://raw.githubusercontent.com/docker/docker/${DIND_COMMIT}/hack/dind" \
+	&& chmod +x /usr/local/bin/dind \
+  && apk del .fetch-deps
+
+COPY scripts/dockerd-entrypoint.sh /usr/local/bin/
+COPY scripts/useradd /bin
+
+ARG VAULT_VERSION=0.6.0
+RUN curl -L "https://releases.hashicorp.com/vault/${VAULT_VERSION}/vault_${VAULT_VERSION}_linux_amd64.zip" -o /tmp/vault.zip && \
+    unzip /tmp/vault.zip -d /usr/local/bin && \
+    rm -f /tmp/vault.zip
+
+# VOLUME /var/lib/docker
+EXPOSE 2375
+
+ENTRYPOINT ["dockerd-entrypoint.sh"]
+CMD []

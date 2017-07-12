@@ -9,7 +9,9 @@ RUN apk add --no-cache \
     openssl && \
     apk add --update \
         --repository http://dl-cdn.alpinelinux.org/alpine/edge/community/ \
-        tini docker
+        tini docker && \
+    mkdir -p /git/seed-jobs && \
+    chown -R jenkins:jenkins /git
 
 USER jenkins
 
@@ -32,9 +34,21 @@ COPY config/load_yadp/load_yadp.* $INIT_GROOVY_D
 # COPY lib $JENKINS_HOME/init.groovy.d/lib
 COPY lib $INIT_GROOVY_D/lib
 
+
 RUN echo 2.0 > /usr/share/jenkins/ref/jenkins.install.UpgradeWizard.state
 RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/ref/plugins.txt
 
+# setup the seed-jobs repo locally as a default
+# this can be overriden by providing SEED_JOBS_REPO
+# with a real https:// repo url
+ENV SEED_JOBS_REPO=/git/seed-jobs
+COPY jobs /git/seed-jobs
+RUN cd /git/seed-jobs && \
+    git config --global user.email "nouser@noreply.com" && \
+    git config --global user.name "nouser" && \
+    git init && \
+    git add -A && \
+    git commit -m "container based seed-jobs repo for init"
 
 #
 # EXPOSE 8080 50000

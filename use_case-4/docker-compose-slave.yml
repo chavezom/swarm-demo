@@ -1,0 +1,32 @@
+version: "3.1"
+
+services:
+  #
+  # we're only using this script to build
+  # each of the slave images
+  docker-v1.13:
+    image: jenkins-slave-dind:v1.13
+    labels: [app=jenkins-slave]
+    healthcheck:
+       disable: true
+    # command: nohub
+    build:
+      context: .
+      dockerfile: Dockerfile.1.13-slave
+      # args:
+        # - http_proxy
+        # - https_proxy
+        # - no_proxy
+  docker-v17.06:
+    image: jenkins-slave-dind:v17.0
+    labels: [app=jenkins-slave]
+    healthcheck:
+       disable: true
+    # command: nohub
+    build:
+      context: .
+      dockerfile: Dockerfile.17.06-slave
+      # args:
+        # - http_proxy
+        # - https_proxy
+        # - no_proxy

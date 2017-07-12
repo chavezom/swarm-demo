@@ -22,3 +22,6 @@ deploy: build
 
 undeploy:
 	$(PREFIX)/build/undeploy.sh
+
+slaves:
+	$(PREFIX)/build/slaves.sh

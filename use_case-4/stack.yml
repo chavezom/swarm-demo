@@ -2,6 +2,21 @@ version: "3.1"
 
 services:
 
+# Environment options that are used with config groovy scripts
+#
+# matrix-authorization --
+# GITHUB_ADMIN_USERS - list of users that will be authorized as admins
+#
+# seed-job --
+# GIT_USERNAME - user name to use to checkout the seed jobs repo
+# GIT_PASSWORD - (use SEED_JOBS_GIT_PASSWORD) password to use to checkout the seed jobs repo
+# SEED_JOBS_REPO - git URL or path in the container to seed jobs repo
+# BUILD_DSL_SCRIPTS (optional) - multi line string for pattern matching into the seed jobs repo
+#
+# yadp --
+# ?? YADP_LAUNCH_JNLP_JENKINS_URL
+# ?? YADP_CREATE_NETWORK_MODE
+#
 #
   jenkins:
     image: jenkins:local_build
@@ -22,6 +37,7 @@ services:
         - GITHUB_URL=https://github.com
         - YADP_CONFIG_JSON=/config/yadp-config.json
         - JENKINS_EXECUTORS=5
+        - BUILD_DSL_SCRIPTS
 
     deploy:
         mode: replicated
@@ -50,6 +66,7 @@ services:
       - GITHUB_CLIENT_ID
       - GITHUB_CLIENT_SECRET
       - GITHUB_ADMIN_USERS
+      # - SEED_JOBS_GIT_PASSWORD
 networks:
   jenkins-net:
     driver: overlay
@@ -69,15 +86,5 @@ secrets:
     external: true
   GITHUB_ADMIN_USERS:
     external: true
-# setup secret
-# GITHUB_CLIENT_ID
-# GITHUB_CLIENT_SECRET
-
-# arguments
-# GITHUB_ADMIN_USERS - list of users that will be authorized as admins
-# GIT_USERNAME - user name to use to checkout the seed jobs repo
-# GIT_PASSWORD - password to use to checkout the seed jobs repo
-# SEED_JOBS_REPO - path to the seed jobs repo
-# BUILD_DSL_SCRIPTS - path to the build scripts
-# ?? YADP_LAUNCH_JNLP_JENKINS_URL
-# ?? YADP_CREATE_NETWORK_MODE
+#  SEED_JOBS_GIT_PASSWORD:
+#    external: true

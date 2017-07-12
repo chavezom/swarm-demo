@@ -12,7 +12,8 @@ integrate slave nodes into our swarm cluster.
 1. setup secrets with `make secrets`
 1. build the container on the first swarm node with the command:
    `make build`
-2. deploy the jenkins server with the command : `make deploy`
+1. deploy the jenkins server with the command : `make deploy`
+1. setup slave images on some of the nodes with : `make slaves`
 
 
 ## Test

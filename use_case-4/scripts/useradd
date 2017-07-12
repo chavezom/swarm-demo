@@ -1,0 +1,3 @@
+#!/bin/sh
+
+adduser -h $2 -D $3

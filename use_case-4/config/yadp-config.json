@@ -1,67 +1,15 @@
 [
   {
-    "Cloud_Name": "ucp_stage",
-    "Docker_URL": "tcp://dashboard.ucp-stage.g4ihos.itcs.hpecorp.net:443",
+    "Cloud_Name": "swarm_demo",
+    "Docker_URL": "tcp://192.168.0.101:2377",
     "Docker_API_version": "",
     "Host_Credentials_vault_path": "secret/hpe4it-jenkins-ci/yad",
     "Connect_timeout": null,
     "Max_Containers": 100,
     "Images": [
       {
-        "Labels": "docker",
-        "Docker_Image_Name": "hub.docker.hpecorp.net/dindc/hpe4it-ci-slave:master",
-        "Max_Instances": 50,
-        "Timeout": 10,
-        "Remote_Filing_System_Root": "/home/jenkins",
-        "Linux_user": "jenkins",
-        "Launch_timeout": 120,
-        "Docker_Network_Mode": "default",
-        "Jenkins_url": "default",
-        "Ignore_certificate_check":"false",
-        "Env_Vars": [
-          { "name": "http_proxy", "value": "http://proxy.houston.hpecorp.net:8080" },
-          { "name": "https_proxy", "value": "http://proxy.houston.hpecorp.net:8080" },
-          { "name": "no_proxy", "value": "localaddress,localhost,hpe.com,hpecorp.net,127.0.0.1,10.0.0.0/16,172.0.0.0/16,192.168.0.0/16,192.168.99.100,192.168.99.101,192.168.99.102,192.168.99.103,16.85.1.98" }
-        ]
-      },
-      {
-        "Labels": "base",
-        "Docker_Image_Name": "hub.docker.hpecorp.net/larsonsh/jenkins-slave-base:0.1",
-        "Max_Instances": 50,
-        "Timeout": 10,
-        "Remote_Filing_System_Root": "/home/jenkins",
-        "Linux_user": "jenkins",
-        "Launch_timeout": 120,
-        "Docker_Network_Mode": "default",
-        "Jenkins_url": "default",
-        "Ignore_certificate_check":"false",
-        "Env_Vars": [
-          { "name": "http_proxy", "value": "http://proxy.houston.hpecorp.net:8080" },
-          { "name": "https_proxy", "value": "http://proxy.houston.hpecorp.net:8080" },
-          { "name": "no_proxy", "value": "localaddress,localhost,hpe.com,hpecorp.net,127.0.0.1,10.0.0.0/16,172.0.0.0/16,192.168.0.0/16,192.168.99.100,192.168.99.101,192.168.99.102,192.168.99.103,16.85.1.98" }
-        ]
-      },
-      {
-        "Labels": "docker-in-docker",
-        "Docker_Image_Name": "hub.docker.hpecorp.net/dindc/jenkins-slave-dind:master",
-        "Max_Instances": 50,
-        "Timeout": 10,
-        "Remote_Filing_System_Root": "/home/jenkins",
-        "Linux_user": "root\" && http_proxy=\"http://proxy.houston.hpecorp.net:8080\" http_proxy=\"http://proxy.houston.hpecorp.net:8080\" /usr/local/bin/dind dockerd & sleep 5 && JENKINS_USER=\"root",
-        "Launch_timeout": 120,
-        "Docker_Network_Mode": "",
-        "Docker_Privileged_Mode": true,
-        "Jenkins_url": "https://jenkins-hpe4it.app.ucp-stage.g4ihos.itcs.hpecorp.net/",
-        "Ignore_certificate_check":"true",
-        "Env_Vars": [
-          { "name": "http_proxy", "value": "http://proxy.houston.hpecorp.net:8080" },
-          { "name": "https_proxy", "value": "http://proxy.houston.hpecorp.net:8080" },
-          { "name": "no_proxy", "value": "localaddress,localhost,hpe.com,hpecorp.net,127.0.0.1,10.0.0.0/16,172.0.0.0/16,192.168.0.0/16,192.168.99.100,192.168.99.101,192.168.99.102,192.168.99.103,16.85.1.98" }
-        ]
-      },
-      {
         "Labels": "docker-v1.13",
-        "Docker_Image_Name": "hub.docker.hpecorp.net/dindc/jenkins-slave-dind:v1.13",
+        "Docker_Image_Name": "jenkins-slave-dind:v1.13",
         "Max_Instances": 50,
         "Timeout": 10,
         "Remote_Filing_System_Root": "/home/jenkins",
@@ -79,7 +27,7 @@
       },
       {
         "Labels": "docker-v17.06",
-        "Docker_Image_Name": "hub.docker.hpecorp.net/dindc/jenkins-slave-dind:v17.06",
+        "Docker_Image_Name": "jenkins-slave-dind:v17.06",
         "Max_Instances": 50,
         "Timeout": 10,
         "Remote_Filing_System_Root": "/home/jenkins",
