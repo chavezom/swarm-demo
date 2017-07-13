@@ -3,7 +3,7 @@
     "Cloud_Name": "swarm_demo",
     "Docker_URL": "tcp://192.168.0.101:2377",
     "Docker_API_version": "",
-    "Host_Credentials_vault_path": "secret/hpe4it-jenkins-ci/yad",
+    "Host_Credentials_vault_path": "secret/use_case_4/yad",
     "Connect_timeout": null,
     "Max_Containers": 100,
     "Images": [

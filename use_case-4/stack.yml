@@ -61,10 +61,6 @@ services:
     # command: "agent -server -bootstrap-expect 3 -ui -client=0.0.0.0 -retry-interval 5s --log-level warn -disable-host-node-id"
     build:
       context: .
-      # args:
-        # - http_proxy
-        # - https_proxy
-        # - no_proxy
     secrets:
       - GITHUB_TOKEN
       - GITHUB_CLIENT_ID
