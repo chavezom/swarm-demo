@@ -30,7 +30,7 @@ You can also navigate to the url:
 ```
 
 ## Exercise
-1. Using the yadp plugin with jenkins to schedule jobs
+1. We can use jenkins and manage all aspects as code, plugins, config, jobs
 1. Deploying an application with A/B pattern using jenkins
 1. Perform backups with S3 API's of the consul backend store
 

@@ -8,9 +8,10 @@ We will use the swarm vault store as the primary method to secure the global key
 1. source the alias keys
    ```
    source ../keys/swarm-alias.sh
-   ``
+   ```
 1. setup the secrets: `make secrets`
-   You will need to provide a personell access token
+
+   You will need to provide a personnel access token
    and github organization to use for authorization
 1. build the local vault containers: `make build`
 1. deploy vault : `make deploy`
@@ -25,13 +26,14 @@ for now we'll use a simple exec process to get to vault and unseal it.
 make unseal
 ```
 
-You will be prompted to save the keys, then the keys will be used
+You will be prompted to prepare to save the keys, then the keys will be used
 to unseal the vault.
 
 ## Test
 
-You can try testing read/write to vault with the following commands
-while still connected to vault:
+You can try testing read/write to vault with the following alias.
+Make sure the docker engine you use is network accessible to the
+swarm cluster.
 
 ```
 export GITHUB_TOKEN=***-your-personel-access-token-****
@@ -53,11 +55,11 @@ vault read secret/hello
 
 ## Exercise
 
-1. Link Vault to Consul using network overlay
+1. Using environment inputs to wait for consul and connect vault
+   to consul
 
 1. Create a secrets store for the vault bootstrap process
 
-1. Unlock / Lock the vault
 
 ## Un-deploy
 

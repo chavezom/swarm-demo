@@ -35,9 +35,9 @@ Pull up minio url locally on port `9001`: `http://192.168.99.101:9001`
 
 1. Setup volume storage for the Minio service
 
-1. Setup an nginx proxy so we can hit any Minio service end-point
+1. Mesh networking takes care of discovery for us, demo that
 
-1. Monitor the Minio service health with the Swarm healthcheck feature
+1. Minio shares network overlay to talk and replicate data, demo that
 
 ## Un-deploy
 
