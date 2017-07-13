@@ -5,18 +5,20 @@ services:
 #
 #
   vault:
-    depends_on:
-      - consul
-    image: "hub.docker.hpecorp.net/dindc/vault:0.1.3"
+    image: "vault:local_build"
     hostname: "vault"
     environment:
-      - VAULT_ADDR="https://dashboard.docker.hpecorp.net:8200"
-      - CONSUL_SERVER
+      - VAULT_ADDR=https://$SWARM_MASTER_IP:8200
+      - CONSUL_SERVER=$SWARM_MASTER_IP
+      - VAULT_SKIP_VERIFY=1
+      - VAULT_CONFIG=/config/vault.hcl
+      - LOG_LEVEL=trace
+      - http_proxy
+      - https_proxy
+      - no_proxy
     ports:
       - "8200:8200"
     deploy:
-      labels:
-        - "com.docker.ucp.access.label=dindc-core"
       replicas: 1
       restart_policy:
         condition: on-failure
@@ -26,6 +28,8 @@ services:
       placement:
         constraints:
           - node.role == worker
+    build:
+      context: .
     secrets:
       - source: vault_tls_key
         target: vault_tls_key
@@ -33,13 +37,15 @@ services:
       - source: vault_tls_cert
         target: vault_tls_cert
         mode: 0644
-    command: "$CONSUL_SERVER:8500 -t 60 -- docker-entrypoint.sh server -config=/config/vault-pro.hcl -log-level=trace"
+      - VAULT_GITHUB_TOKEN
+      - VAULT_GITHUB_ADMIN_ORG
+    command: $SWARM_MASTER_IP:8500 -t 60 -- /usr/local/bin/bootstrap.sh
 secrets:
   vault_tls_key:
     external: true
   vault_tls_cert:
     external: true
-
-networks:
-  consul_consul-net:
+  VAULT_GITHUB_TOKEN:
+    external: true
+  VAULT_GITHUB_ADMIN_ORG:
     external: true
