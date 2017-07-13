@@ -1,4 +1,6 @@
-organizationFolder('JenkinsHub') {
+// This is a demo project to show
+// how to setup a basic pipeline project
+organizationFolder('DemoProject') {
     authorization {
             permissionAll('wenlock')
             permission('hudson.model.Item.Read', 'anonymous')

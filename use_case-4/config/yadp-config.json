@@ -13,16 +13,16 @@
         "Max_Instances": 50,
         "Timeout": 10,
         "Remote_Filing_System_Root": "/home/jenkins",
-        "Linux_user": "root\" && http_proxy=\"http://proxy.houston.hpecorp.net:8080\" http_proxy=\"http://proxy.houston.hpecorp.net:8080\" /usr/local/bin/dind dockerd & sleep 5 && JENKINS_USER=\"root",
+        "Linux_user": "root\" && http_proxy=\"http://proxy.yournet.net:8080\" http_proxy=\"http://proxy.yournet.net:8080\" /usr/local/bin/dind dockerd & sleep 5 && JENKINS_USER=\"root",
         "Launch_timeout": 120,
         "Docker_Network_Mode": "",
         "Docker_Privileged_Mode": true,
-        "Jenkins_url": "https://jenkins-hpe4it.app.ucp-stage.g4ihos.itcs.hpecorp.net/",
+        "Jenkins_url": "default",
         "Ignore_certificate_check":"true",
         "Env_Vars": [
-          { "name": "http_proxy", "value": "http://proxy.houston.hpecorp.net:8080" },
-          { "name": "https_proxy", "value": "http://proxy.houston.hpecorp.net:8080" },
-          { "name": "no_proxy", "value": "localaddress,localhost,hpe.com,hpecorp.net,127.0.0.1,10.0.0.0/16,172.0.0.0/16,192.168.0.0/16,192.168.99.100,192.168.99.101,192.168.99.102,192.168.99.103,16.85.1.98" }
+          { "name": "http_proxy", "value": "http://proxy.yournet.net:8080" },
+          { "name": "https_proxy", "value": "http://proxy.yournet.net:8080" },
+          { "name": "no_proxy", "value": "localaddress,localhost,yournet.com,yournet.net,127.0.0.1,10.0.0.0/16,172.0.0.0/16,192.168.0.0/16,192.168.99.100,192.168.99.101,192.168.99.102,192.168.99.103" }
         ]
       },
       {
@@ -31,16 +31,16 @@
         "Max_Instances": 50,
         "Timeout": 10,
         "Remote_Filing_System_Root": "/home/jenkins",
-        "Linux_user": "root\" && http_proxy=\"http://proxy.houston.hpecorp.net:8080\" http_proxy=\"http://proxy.houston.hpecorp.net:8080\" /usr/local/bin/dind dockerd & sleep 5 && JENKINS_USER=\"root",
+        "Linux_user": "root\" && http_proxy=\"http://proxy.yournet.net:8080\" http_proxy=\"http://proxy.yournet.net:8080\" /usr/local/bin/dind dockerd & sleep 5 && JENKINS_USER=\"root",
         "Launch_timeout": 120,
         "Docker_Network_Mode": "",
         "Docker_Privileged_Mode": true,
-        "Jenkins_url": "https://jenkins-hpe4it.app.ucp-stage.g4ihos.itcs.hpecorp.net/",
+        "Jenkins_url": "default",
         "Ignore_certificate_check":"true",
         "Env_Vars": [
-          { "name": "http_proxy", "value": "http://proxy.houston.hpecorp.net:8080" },
-          { "name": "https_proxy", "value": "http://proxy.houston.hpecorp.net:8080" },
-          { "name": "no_proxy", "value": "localaddress,localhost,hpe.com,hpecorp.net,127.0.0.1,10.0.0.0/16,172.0.0.0/16,192.168.0.0/16,192.168.99.100,192.168.99.101,192.168.99.102,192.168.99.103,16.85.1.98" }
+          { "name": "http_proxy", "value": "http://proxy.yournet.net:8080" },
+          { "name": "https_proxy", "value": "http://proxy.yournet.net:8080" },
+          { "name": "no_proxy", "value": "localaddress,localhost,yournet.com,yournet.net,127.0.0.1,10.0.0.0/16,172.0.0.0/16,192.168.0.0/16,192.168.99.100,192.168.99.101,192.168.99.102,192.168.99.103" }
         ]
       }
     ]

@@ -16,10 +16,16 @@ import java.nio.file.Files
 import groovy.json.*
 import static java.util.Collections.singletonList;
 
+//
+// simple logging function
+//
 void log(String text) {
     println('== yadp.groovy - ' + text)
 }
 
+//
+// get vault object
+//
 GroovyObject getVault() {
     // Loading vaultUtils.groovy
     scriptDir = new File(getClass().protectionDomain.codeSource.location.path).parent
@@ -31,6 +37,9 @@ GroovyObject getVault() {
     return (GroovyObject) groovyClass.newInstance();
 }
 
+//
+// ensure registry authentication
+//
 String ensure_registry_auth(String cloud_name, String vault_path) {
 
     GroovyObject myVault = getVault()
@@ -97,6 +106,9 @@ String ensure_registry_auth(String cloud_name, String vault_path) {
     return (cred_id)
 }
 
+//
+// ensure docker client certificate
+//
 String ensure_docker_client_certificate(String cloud_name, String vault_path) {
 
     GroovyObject myVault = getVault()
@@ -154,6 +166,9 @@ String ensure_docker_client_certificate(String cloud_name, String vault_path) {
     return (cred_id)
 }
 
+//
+// Cloud validation
+//
 Object Cloud_Validate(Object cloud) {
 
   if (!cloud.Docker_URL) {
@@ -180,6 +195,10 @@ Object Cloud_Validate(Object cloud) {
   return (cloud)
 }
 
+//
+// Validate template
+//
+
 Object Template_Validate(Object template) {
 
   if (!template.Docker_Image_Name) {
@@ -193,8 +212,8 @@ Object Template_Validate(Object template) {
   }
 
   if (!template.Remote_Filing_System_Root) {
-    template.Remote_Filing_System_Root = "/home/jenkins"
-    log("${template.Docker_Image_Name} - WARNING: The Remote Filing System Root is empty. '/home/jenkins' set as default.")
+    template.Remote_Filing_System_Root = ENV['JENKINS_HOME']
+    log("${template.Docker_Image_Name} - WARNING: The Remote Filing System Root is empty. ${template.Remote_Filing_System_Root} set as default.")
   }
 
   if (!template.Linux_user) {
@@ -229,6 +248,9 @@ Object Template_Validate(Object template) {
   return (template)
 }
 
+//
+// main section
+//
 def env = System.getenv()
 def cloud_list = []
 def YADP_CONFIG_JSON  = env['YADP_CONFIG_JSON']

@@ -35,6 +35,7 @@ services:
         - GITHUB_ADMIN_USERS
         - GITHUB_API_URL=https://api.github.com
         - GITHUB_URL=https://github.com
+        - YADP_LAUNCH_JNLP_JENKINS_URL=http://$SWARM_MASTER_IP:8080
         - YADP_CONFIG_JSON=/config/yadp-config.json
         - JENKINS_EXECUTORS=5
         - BUILD_DSL_SCRIPTS

@@ -39,6 +39,9 @@ COPY config/load_yadp/load_yadp.* $INIT_GROOVY_D
 # COPY lib $JENKINS_HOME/init.groovy.d/lib
 COPY lib $INIT_GROOVY_D/lib
 
+# Configure the yet-another-docker-plugin
+ENV YADP_CONFIG_JSON=/config/yadp-config.json
+COPY config/yadp-config.json /config/yadp-config.json
 
 RUN echo 2.0 > /usr/share/jenkins/ref/jenkins.install.UpgradeWizard.state
 RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/ref/plugins.txt
