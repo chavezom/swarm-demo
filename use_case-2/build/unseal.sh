@@ -1,8 +1,10 @@
 #!/bin/bash
 
 node_config=$(eval "docker ${docker_config_swarm_node_1} \
-             stack ps vault --format '{{.Node}}'"|sed 's/-/_/g')
-
+                        stack ps vault --format '{{.Node}}:{{.CurrentState}}'" \
+                            |grep 'Running' \
+                            | awk -F ':' '{print $1}' \
+                            |sed 's/-/_/g')
 if [ ! -z "${no_proxy}" ]; then
   eval "export no_proxy=${no_proxy},\${docker_swarm_ip_${node_config}}"
   export NO_PROXY=$no_proxy
